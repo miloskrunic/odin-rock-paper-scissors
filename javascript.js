@@ -3,6 +3,16 @@ let computerScore = 0;
 let computer = "";
 let human = "";
 
+let humanScoreDisplay = document.querySelector("#human-score");
+let computerScoreDisplay = document.querySelector("#computer-score");
+
+let rockBtn = document.querySelector("#RCK");
+let paperBtn = document.querySelector("#PAP");
+let scissorsBtn = document.querySelector("#SCI");
+
+rockBtn.addEventListener('click', () => playRound("rock", getComputerChoice()));
+paperBtn.addEventListener('click', () => playRound("paper", getComputerChoice()));
+scissorsBtn.addEventListener('click', () => playRound("scissors", getComputerChoice()));
 
 function getComputerChoice(){
     let r;
@@ -20,17 +30,6 @@ function getComputerChoice(){
         return computer = "scissors"
     }
 }
-
-function getHumanChoice(){
-    let choice = prompt("Let's play rock, paper, scisscors! Choose one:")
-    if(choice.toLowerCase() === "rock" || choice.toLowerCase() === "paper" || choice.toLowerCase() === "scissors")
-        return choice;
-    else{
-        alert("Try again and don't be retarded! CHOOSE BETWEEN ROCK, PAPER AND SCISSORS!")
-        return getHumanChoice();
-    }
-}
-
 
 function playRound(humanChoice, computerChoice){
     let result = 0;
@@ -55,11 +54,13 @@ function playRound(humanChoice, computerChoice){
             console.log("Computer won this round!")
             computerScore = computerScore + 1;
             console.log("Computer score is: " + computerScore)
+            computerScoreDisplay.textContent = computerScore;
             break;
         case 2:
             console.log("Human won this round!")
             humanScore = humanScore + 1;
             console.log("Human score is: " + humanScore)
+            humanScoreDisplay.textContent = humanScore;
             break;
         case 3:
             console.log("No one won this round!")
@@ -67,23 +68,13 @@ function playRound(humanChoice, computerChoice){
         default:
             console.log("Is this even working?")
     }
+    checkWinner();
 }
 
-
-function playGame(){
-    for(let i=0;i<5;i++){
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        playRound(humanSelection, computerSelection);
+function checkWinner(){
+    if(humanScore == 5){
+        alert("HUMAN WON AGAINST THE MACHINE!!!");
+    } else if(computerScore == 5){
+        alert("MACHINES HAVE CONQUERED THE WORLD!!!");
     }
-    if(computerScore>humanScore)
-        console.log("COMPUTER WON THE TOURNAMENT!")
-    else if(humanScore>computerScore)
-    console.log("HUMAN WON THE TOURNAMENT!")
-    else
-    console.log("NO ONE WON THE TOURNAMENT!")
 }
-
-playGame();
-
-
